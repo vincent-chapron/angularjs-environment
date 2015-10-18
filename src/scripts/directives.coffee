@@ -1,0 +1,4 @@
+appDirectives = angular.module 'directives', [
+	## ADD DIRECTIVE MODULES HERE ##
+    ## THESE COMMENTS ARE NECESSARY FOR CREATE:SCRIPT:DIRECTIVE COMMAND ##
+]

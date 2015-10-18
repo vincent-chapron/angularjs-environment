@@ -1,0 +1,16 @@
+{
+  "name": "angularjs-environment",
+  "version": "1.0.0",
+  "description": "Environment using gulp to start an AngularJS project.",
+  "authors": [
+      "Vincent Chapron <vincent@chapron.io>"
+  ],
+  "ignore": [
+      "src/bower_components",
+      "web"
+  ],
+  "dependencies": {
+      "angular": "^1.4.7",
+      "angular-route": "^1.4.7"
+  }
+}

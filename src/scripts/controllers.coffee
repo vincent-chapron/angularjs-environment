@@ -1,0 +1,4 @@
+appControllers = angular.module 'controllers', [
+	## ADD CONTROLLER MODULES HERE ##
+    ## THESE COMMENTS ARE NECESSARY FOR CREATE:SCRIPT:CONTROLLER COMMAND ##
+]

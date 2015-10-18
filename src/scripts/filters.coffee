@@ -1,0 +1,4 @@
+appFilters = angular.module 'filters', [
+	## ADD FILTER MODULES HERE ##
+    ## THESE COMMENTS ARE NECESSARY FOR CREATE:SCRIPT:FILTER COMMAND ##
+]
