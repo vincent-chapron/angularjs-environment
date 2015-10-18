@@ -1,0 +1,11 @@
+*
+!.gitignore
+!controllers/
+!directives/
+!factories/
+!filters/
+!app.coffee
+!controllers.coffee
+!directives.coffee
+!factories.coffee
+!filters.coffee
