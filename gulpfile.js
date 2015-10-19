@@ -285,12 +285,9 @@ gulp.task('generate:stylesheets', function() {
 
     var stylesheet = gulp.src([pathToSrcStyles + '/**/*.sass', pathToSrcStyles + '/**/*.scss'])
         .pipe(sass({ style: 'expanded' }))
-        .on('error', function(err){
-            console.log("\n" + gutil.colors.red(err.message) + "\n");
-            gutil.beep();
-            this.emit('end');
-        })
-        .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'));
+        .on('error', function(err){displayError(this, err.message)})
+        .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+        .on('error', function(err){displayError(this, err)});
 
     if (gutil.env.prod) {
         stylesheet.pipe(rename({ suffix: '.min' })).pipe(minifycss());
@@ -337,11 +334,7 @@ gulp.task('generate:scripts', function() {
     for (folder in folders) {
         scripts = gulp.src(folders[folder][0])
             .pipe(coffee())
-            .on('error', function(err){
-                console.log("\n" + gutil.colors.red(err) + "\n");
-                gutil.beep();
-                this.emit('end');
-            })
+            .on('error', function(err){displayError(this, err)})
         ;
 
         if (gutil.env.prod) {
@@ -514,6 +507,12 @@ function fileExists(pathToFile, successCallback, failCallback) {
 String.prototype.ucfirst = function() {
     return this.charAt(0).toUpperCase() + this.substr(1);
 };
+
+function displayError (that, err) {
+    console.log("\n" + gutil.colors.red(err) + "\n");
+    gutil.beep();
+    that.emit('end');
+}
 
 function help(help) {
     switch (help) {
