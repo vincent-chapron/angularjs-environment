@@ -286,8 +286,8 @@ gulp.task('generate:stylesheets', function() {
     var stylesheet = gulp.src([pathToSrcStyles + '/**/*.sass', pathToSrcStyles + '/**/*.scss'])
         .pipe(sass({ style: 'expanded' }))
         .on('error', function(err){
-            console.log("\n" + gutil.colors.red(err.messageFormatted) + "\n");
-                gutil.beep();
+            console.log("\n" + gutil.colors.red(err.message) + "\n");
+            gutil.beep();
             this.emit('end');
         })
         .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'));
