@@ -21,7 +21,8 @@ var gulp         = require('gulp'),
     uglify       = require('gulp-uglify'),
     modify       = require('gulp-modify'),
     livereload   = require('gulp-livereload'),
-    fs           = require('fs');
+    fs           = require('fs'),
+    config       = require('./config.json');
 
 var src                = 'src',
     app                = 'web',
