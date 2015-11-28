@@ -8,7 +8,7 @@
  * **
  * *
  *
- * */
+ **/
 
 var gulp         = require('gulp'),
     gutil        = require('gulp-util'),
@@ -24,44 +24,30 @@ var gulp         = require('gulp'),
     fs           = require('fs'),
     config       = require('./config.json');
 
-var src                = 'src',
-    app                = 'web',
-    bowerFolder        = 'bower_components',
-    styles             = 'stylesheets',
-    mainStyle          = 'style.sass',
-    scripts            = 'scripts',
-    images             = 'images',
-    mainAngular        = 'app.coffee',
-    mainController     = 'controllers.coffee',
-    mainDirective      = 'directives.coffee',
-    mainFactory        = 'factories.coffee',
-    mainFilter         = 'filters.coffee',
-    angularControllers = 'controllers',
-    angularDirectives  = 'directives',
-    angularFactories   = 'factories',
-    angularFilters     = 'filters';
-
-var pathToSrcStyles    = src + '/' + styles,
-    pathToSrcMainStyle = pathToSrcStyles + '/' + mainStyle,
-    pathToAppStyles    = app + '/' + styles,
-    pathToAppMainStyle = pathToAppStyles + '/' + mainStyle;
-
-var pathToSrcScripts     = src + '/' + scripts,
-    pathToMainScript     = pathToSrcScripts + '/' + mainAngular,
-    pathToMainController = pathToSrcScripts + '/' + mainController,
-    pathToMainDirective  = pathToSrcScripts + '/' + mainDirective,
-    pathToMainFactory    = pathToSrcScripts + '/' + mainFactory,
-    pathToMainFilter     = pathToSrcScripts + '/' + mainFilter,
-    pathToSrcControllers = pathToSrcScripts + '/' + angularControllers,
-    pathToSrcDirectives  = pathToSrcScripts + '/' + angularDirectives,
-    pathToSrcFactories   = pathToSrcScripts + '/' + angularFactories,
-    pathToSrcFilters     = pathToSrcScripts + '/' + angularFilters,
-    pathToAppScripts     = app + '/' + scripts,
-    pathToAppControllers = pathToAppScripts + '/' + angularControllers,
-    pathToAppDirectives  = pathToAppScripts + '/' + angularDirectives,
-    pathToAppFactories   = pathToAppScripts + '/' + angularFactories,
-    pathToAppFilters     = pathToAppScripts + '/' + angularFilters;
-
+var src                  = config.src.folder,
+    app                  = config.dest.folder,
+    pathToSrcBower       = pathToSrcStyles + '/' + config.src.bower.folder,
+    pathToSrcImages      = pathToSrcStyles + '/' + config.src.images.folder,
+    pathToSrcStyles      = src + '/' + config.src.style.folder,
+    pathToSrcMainStyle   = pathToSrcStyles + '/' + config.src.style.main,
+    pathToSrcScripts     = src + '/' + config.src.script.folder,
+    pathToSrcControllers = pathToSrcScripts + '/' + config.src.script.controller.folder,
+    pathToSrcDirectives  = pathToSrcScripts + '/' + config.src.script.directive.folder,
+    pathToSrcFactories   = pathToSrcScripts + '/' + config.src.script.factory.folder,
+    pathToSrcFilters     = pathToSrcScripts + '/' + config.src.script.filter.folder,
+    pathToMainController = pathToSrcScripts + '/' + config.src.script.required.controller,
+    pathToMainDirective  = pathToSrcScripts + '/' + config.src.script.required.directive,
+    pathToMainFactory    = pathToSrcScripts + '/' + config.src.script.required.factory,
+    pathToMainFilter     = pathToSrcScripts + '/' + config.src.script.required.filter,
+    pathToAppBower       = app + '/' + config.dest.bower.folder,
+    pathToAppImages      = app + '/' + config.dest.images.folder,
+    pathToAppStyles      = app + '/' + config.dest.style.folder,
+    pathToAppMainStyle   = pathToAppStyles + '/' + config.dest.style.main,
+    pathToAppScripts     = app + '/' + config.dest.script.folder,
+    pathToAppControllers = pathToAppScripts + '/' + config.dest.script.controller.folder,
+    pathToAppDirectives  = pathToAppScripts + '/' + config.dest.script.directive.folder,
+    pathToAppFactories   = pathToAppScripts + '/' + config.dest.script.factory.folder,
+    pathToAppFilters     = pathToAppScripts + '/' + config.dest.script.filter.folder;
 
 
 
@@ -124,7 +110,7 @@ gulp.task('bower', function() {
         return false;
     }
 
-    bower().pipe(gulp.dest(src + '/' + bowerFolder)).pipe(gulp.dest(app + '/' + bowerFolder));
+    bower().pipe(gulp.dest(pathToSrcBower)).pipe(gulp.dest(pathToAppBower));
 });
 
 /**
@@ -415,7 +401,7 @@ gulp.task('generate:images', function() {
         return false;
     }
 
-    return gulp.src(src + '/' + images + '/**/*').pipe(gulp.dest(app + '/' + images)).pipe(livereload());
+    return gulp.src(pathToSrcImages + '/**/*').pipe(gulp.dest(pathToAppImages)).pipe(livereload());
 });
 
 /**
@@ -430,7 +416,7 @@ gulp.task('watch:images', ['generate:images'], function() {
     }
 
     livereload({ start: true });
-    gulp.watch(src + '/' + images + '/**/*', ['generate:images']);
+    gulp.watch(pathToSrcImages + '/**/*', ['generate:images']);
 });
 
 /**
@@ -519,7 +505,7 @@ function help(help) {
     switch (help) {
         case 'bower':
             console.log("\n\tgulp " + gutil.colors.cyan('bower') + ':');
-            console.log("\t\tInstall bower dependencies in :\n\t\t\t- " + src + '/' + bowerFolder + "\n\t\t\t- " + app + '/' + bowerFolder);
+            console.log("\t\tInstall bower dependencies in :\n\t\t\t- " + pathToSrcBower + "\n\t\t\t- " + pathToAppBower);
             break;
         case 'create:script:controller':
             console.log("\n\tgulp " + gutil.colors.cyan('create:script:controller') + ' --name <name>:');
@@ -564,7 +550,7 @@ function help(help) {
             break;
         case 'generate:images':
             console.log("\n\tgulp " + gutil.colors.cyan('generate:images') + ':');
-            console.log("\t\tGenerate image, move files from " + src + '/' + images + "/ to " + app + '/' + images + '/. Nothing more for the moment.');
+            console.log("\t\tGenerate image, move files from " + pathToSrcImages + "/ to " + pathToAppImages + '/. Nothing more for the moment.');
             break;
         case 'generate:scripts':
             console.log("\n\tgulp " + gutil.colors.cyan('generate:scripts') + ' [--prod]:');
@@ -596,7 +582,7 @@ function help(help) {
             break;
         case 'watch:images':
             console.log("\n\tgulp " + gutil.colors.cyan('watch:images') + ':');
-            console.log("\t\tWait a change of any files in " + src + "/" + images + "/ folder.");
+            console.log("\t\tWait a change of any files in " + pathToSrcImages + "/ folder.");
             console.log("\t\tOn change, use the generate:images command to compile the modified files.");
             break;
         case 'watch:scripts':

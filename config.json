@@ -1,1 +1,38 @@
-{}
+{
+    "src": {
+        "folder": "src",
+        "style": {
+            "folder": "stylesheets",
+            "main": "style.sass"
+        },
+        "script": {
+            "folder": "scripts",
+            "main": "app.coffee",
+            "required": {
+                "controller": "controllers.coffee",
+                "directive": "directives.coffee",
+                "factory": "factories.coffee",
+                "filter": "filters.coffee"
+            },
+            "controller": { "folder": "controllers" },
+            "directive": { "folder": "directives" },
+            "factory": { "folder": "factories" },
+            "filter": { "folder": "filters" }
+        },
+        "images": { "folder": "images" },
+        "bower": { "folder": "bower_components" }
+    },
+    "dest": {
+        "folder": "web",
+        "style": { "folder": "stylesheets" },
+        "script": {
+            "folder": "scripts",
+            "controller": { "folder": "controllers" },
+            "directive": { "folder": "directives" },
+            "factory": { "folder": "factories" },
+            "filter": { "folder": "filters" }
+        },
+        "images": { "folder": "images" },
+        "bower": { "folder": "bower_components" }
+    }
+}
